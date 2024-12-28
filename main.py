@@ -1,7 +1,7 @@
 import requests
 import re
 from urllib.parse import urlparse
-
+import questionary
 def read_links_from_file(link_file):
     with open(link_file, 'r') as file:
         lines = set(line.strip() for line in file if line.strip())
@@ -40,7 +40,7 @@ def parse_proxies_from_links(valid_links, output_file):
     return len(proxy_set)
 
 def main():
-    link_file = input("Enter the link file name: ")
+    link_file = questionary.path("What's the path to the proxy file {.txt}?").ask()
     links, dublicates = read_links_from_file(link_file)
     if not links:
         print('Please load valid links')
